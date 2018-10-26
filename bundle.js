@@ -81,32 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/app.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./app.js":
-/*!****************!*\
-  !*** ./app.js ***!
-  \****************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/app.ts":
+/*!********************!*\
+  !*** ./src/app.ts ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sum */ \"./sum.js\");\n// import 'babel-polyfill'\n\nconsole.log('sum(23, 24) =', Object(_sum__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(23, 24));\n\nvar fun = function fun() {};\n\nvar NUM = 20;\nvar arr = [1, 2, 3];\nvar arrB = arr.map(function (i) {\n  return i * 2;\n});\nconsole.log('new Set(arrB):', new Set(arrB));\n\n//# sourceURL=webpack:///./app.js?");
-
-/***/ }),
-
-/***/ "./sum.js":
-/*!****************!*\
-  !*** ./sum.js ***!
-  \****************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (function (a, b) {\n  return a + b;\n});\n\n//# sourceURL=webpack:///./sum.js?");
+eval("var NUM = 38;\r\nfunction touchCat(cat) {\r\n    console.log('my name is ', cat.name);\r\n}\r\ntouchCat({ name: 'fred' });\r\n\n\n//# sourceURL=webpack:///./src/app.ts?");
 
 /***/ })
 
