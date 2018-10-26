@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 
 module.exports = {
@@ -9,5 +7,17 @@ module.exports = {
     output: {
         path: path.resolve(__dirname),
         filename: 'bundle.js'
+    },
+    mode: 'development',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: '/node_modules/',
+                use: {
+                    loader: 'babel-loader'
+                }
+            }
+        ]
     }
 };
