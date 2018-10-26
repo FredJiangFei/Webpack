@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"vendors~lodash":"vendors~lodash"}[chunkId]||chunkId) + ".bundle.js"
+/******/ 		return __webpack_require__.p + "" + ({"asyncPage":"asyncPage","vendors~lodash":"vendors~lodash"}[chunkId]||chunkId) + ".bundle.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -207,7 +207,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users */ \"./src/users.js\");\n\r\n\r\n\r\n__webpack_require__.e(/*! require.ensure | lodash */ \"vendors~lodash\").then((function () {\r\n    var _ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\r\n    const adam = _.find(_users__WEBPACK_IMPORTED_MODULE_0__[\"default\"], { firstName: 'Adam' });\r\n    console.log(adam);\r\n}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);\r\n\r\n\n\n//# sourceURL=webpack:///./src/pageA.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users */ \"./src/users.js\");\n\r\n\r\n__webpack_require__.e(/*! import() | lodash */ \"vendors~lodash\").then(__webpack_require__.t.bind(null, /*! lodash */ \"./node_modules/lodash/lodash.js\", 7)).then(function (_) {\r\n    const adam = _.find(_users__WEBPACK_IMPORTED_MODULE_0__[\"default\"], { firstName: 'Adam' });\r\n    console.log(adam);\r\n});\r\n\r\n__webpack_require__.e(/*! import() | asyncPage */ \"asyncPage\").then(__webpack_require__.bind(null, /*! ./asyncPage */ \"./src/asyncPage.js\")).then(function (asy) {\r\n    console.log(asy);\r\n});\n\n//# sourceURL=webpack:///./src/pageA.js?");
 
 /***/ }),
 

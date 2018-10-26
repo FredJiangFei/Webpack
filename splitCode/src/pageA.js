@@ -1,9 +1,10 @@
 import users from './users';
 
-
-require.ensure([], function () {
-    var _ = require('lodash');
+import(/* webpackChunkName:'lodash' */'lodash').then(function (_) {
     const adam = _.find(users, { firstName: 'Adam' });
     console.log(adam);
-}, 'lodash');
+});
 
+import(/* webpackChunkName:'asyncPage' */'./asyncPage').then(function (asy) {
+    console.log(asy);
+});
