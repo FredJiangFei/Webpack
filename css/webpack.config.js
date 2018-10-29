@@ -1,4 +1,5 @@
 const path = require('path');
+var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: './src/app.js',
@@ -12,26 +13,33 @@ module.exports = {
         rules: [
             {
                 test: /\.less$/,
-                use: [
-                    {
+                use: ExtractTextWebpackPlugin.extract({
+                    fallback: {
                         loader: 'style-loader',
                         options: {
                             singleton: true
                         }
                     },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            // minimize: true,
-                            modules: true,
-                            localIdentName: '[path][name]_[local]_[hash:base64:5]'
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                localIdentName: '[path][name]_[local]_[hash:base64:5]'
+                            }
+                        },
+                        {
+                            loader: 'less-loader'
                         }
-                    },
-                    {
-                        loader: 'less-loader'
-                    }
-                ]
+                    ]
+                })
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextWebpackPlugin({
+            filename: '[name].min.css',
+            allChunks: false // 只提取初始化css，异步加载的不会提取
+        })
+    ]
 };
