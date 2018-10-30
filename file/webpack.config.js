@@ -17,26 +17,48 @@ module.exports = {
                     use: [
                         {
                             loader: 'css-loader'
-                        }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                ident: 'postcss',
+                                plugins: [
+                                    require('postcss-sprites')({
+                                        spritePath: 'dist/imgs',
+                                        retina: true
+                                    }),      
+                                    require('postcss-cssnext')()
+                                ]
+                            }
+                        },
                     ]
                 })
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/,
                 use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].min.[ext]',
+                            publicPath: 'imgs/',
+                            useRelativePath: true
+                        }
+                    },
                     // {
-                    //     loader: 'file-loader',
+                    //     loader: 'url-loader',
                     //     options: {
+                    //         limit: 10000,
                     //         publicPath: 'imgs/',
                     //         useRelativePath: true
                     //     }
                     // },
                     {
-                        loader: 'url-loader',
+                        loader: 'img-loader',
                         options: {
-                            limit: 10000,
-                            publicPath: 'imgs/',
-                            useRelativePath: true
+                            pngquant: {
+                                quality: 80
+                            }
                         }
                     }
                 ]

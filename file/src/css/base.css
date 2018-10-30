@@ -1,9 +1,21 @@
 .img {
-    width: 150px;
-    height: 140px;
+    width: 64px;
+    height: 64px;
     display: inline-block;
 }
 
 .ani1 {
     background: url('../imgs/1@2x.png') no-repeat;
+}
+
+.ani2 {
+    background: url('../imgs/2@2x.png') no-repeat;
+}
+
+.ani3 {
+    background: url('../imgs/3@2x.png') no-repeat;
+}
+
+.ani4 {
+    background: url('../imgs/4@2x.png') no-repeat;
 }
