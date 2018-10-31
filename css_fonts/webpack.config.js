@@ -1,13 +1,15 @@
 const path = require('path');
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/app.js',
-    context: path.resolve(__dirname),
+    entry: {
+        app: './src/app.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './dist/',
-        filename: 'bundle.js'
+        // publicPath: './dist/',
+        filename: '[name]-bundle-[hash:5].js'
     },
     module: {
         rules: [
@@ -31,12 +33,12 @@ module.exports = {
                         {
                             loader: 'less-loader'
                         },
-                        
+
                     ]
                 })
             },
             {
-                test:/\.(eot|woff2?|ttf|svg)$/,
+                test: /\.(eot|woff2?|ttf|svg)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -53,8 +55,17 @@ module.exports = {
     },
     plugins: [
         new ExtractTextWebpackPlugin({
-            filename: '[name].min.css',
+            filename: '[name]-bundle-[hash:5].min.css',
             allChunks: false // 只提取初始化css，异步加载的不会提取
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'home.html',
+            template: './index.html',
+            chunks: ['app'], // 要提取的entry名称
+            minify: {
+                collapseWhitespace: true
+            }
+            // inject: false
         })
     ]
 };
