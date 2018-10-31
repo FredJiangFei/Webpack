@@ -11,6 +11,26 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name]-bundle-[hash:5].js'
     },
+    devServer: {
+        port: 9001,
+        historyApiFallback: {
+            rewrites: [
+                {
+                    from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
+                    to: function (context) {
+                        return '/' + context.match[1] + context.match[2] + '.html'
+                    }
+                }
+            ]
+        },
+        proxy: {
+            'api/': {
+                target: 'https://api.github.com'
+            }
+        },
+        open:true
+        // inline: false
+    },
     module: {
         rules: [
             {
@@ -76,37 +96,18 @@ module.exports = {
                     }
                 ]
             },
-            {
-                test: /\.html$/,
-                use: [
-                    {
-                        loader: 'html-loader',
-                        options: {
-                            attrs: ['img:src']
-                        }
-                    }
-                ]
-            }
+            // {
+            //     test: /\.html$/,
+            //     use: [
+            //         {
+            //             loader: 'html-loader',
+            //             options: {
+            //                 attrs: ['img:src']
+            //             }
+            //         }
+            //     ]
+            // }
         ]
-    },
-    devServer: {
-        port: 9001,
-        historyApiFallback: {
-            rewrites: [
-                {
-                    from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
-                    to: function (context) {
-                        return '/' + context.match[1] + context.match[2] + '.html'
-                    }
-                }
-            ]
-        },
-        proxy: {
-            'api/': {
-                target: 'https://api.github.com'
-            }
-        }
-        // inline: false
     },
     plugins: [
         new ExtractTextWebpackPlugin({
