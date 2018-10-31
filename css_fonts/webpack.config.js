@@ -24,8 +24,16 @@ module.exports = {
             ]
         },
         proxy: {
-            'api/': {
-                target: 'https://api.github.com'
+            '/': {
+                target: 'https://api.github.com',
+                changeOrigin: true,
+                logLevel: 'debug',
+                // pathRewrite: {
+                //     '^/users': '/api/users'
+                // }
+                // headers: {
+
+                // }
             }
         },
         open:true
@@ -50,19 +58,19 @@ module.exports = {
                                 localIdentName: '[local]'
                             }
                         },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                ident: 'postcss',
-                                plugins: [
-                                    require('postcss-sprites')({
-                                        spritePath: 'dist/imgs',
-                                        retina: true
-                                    }),      
-                                    require('postcss-cssnext')()
-                                ]
-                            }
-                        },
+                        // {
+                        //     loader: 'postcss-loader',
+                        //     options: {
+                        //         ident: 'postcss',
+                        //         plugins: [
+                        //             require('postcss-sprites')({
+                        //                 spritePath: 'dist/imgs',
+                        //                 retina: true
+                        //             }),      
+                        //             require('postcss-cssnext')()
+                        //         ]
+                        //     }
+                        // },
                         {
                             loader: 'less-loader'
                         },
@@ -115,7 +123,6 @@ module.exports = {
             allChunks: false // 只提取初始化css，异步加载的不会提取
         }),
         new HtmlWebpackPlugin({
-            filename: 'home.html',
             template: './index.html',
             // chunks: ['app'], // 要提取的entry名称
             minify: {
