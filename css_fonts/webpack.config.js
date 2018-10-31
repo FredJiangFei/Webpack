@@ -1,6 +1,7 @@
 const path = require('path');
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -8,8 +9,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        // publicPath: './dist/',
-        filename: '[name]-bundle-[hash:5].js'
+        filename: 'js/[name]-bundle-[hash:5].js'
     },
     module: {
         rules: [
@@ -28,6 +28,19 @@ module.exports = {
                             options: {
                                 modules: true,
                                 localIdentName: '[local]'
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                ident: 'postcss',
+                                plugins: [
+                                    require('postcss-sprites')({
+                                        spritePath: 'dist/imgs',
+                                        retina: true
+                                    }),      
+                                    require('postcss-cssnext')()
+                                ]
                             }
                         },
                         {
@@ -63,22 +76,36 @@ module.exports = {
                     }
                 ]
             },
-            // {
-            //     test: /\.html$/,
-            //     use: [
-            //         {
-            //             loader: 'html-loader',
-            //             options: {
-            //                 attrs: ['img:src']
-            //             }
-            //         }
-            //     ]
-            // }
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'html-loader',
+                        options: {
+                            attrs: ['img:src']
+                        }
+                    }
+                ]
+            }
         ]
+    },
+    devServer: {
+        port: 9001,
+        historyApiFallback: {
+            rewrites: [
+                {
+                    from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
+                    to: function (context) {
+                        return '/' + context.match[1] + context.match[2] + '.html'
+                    }
+                }
+            ]
+        }
+        // inline: false
     },
     plugins: [
         new ExtractTextWebpackPlugin({
-            filename: '[name]-bundle-[hash:5].min.css',
+            filename: '[name]-bundle-[hash:5].css',
             allChunks: false // 只提取初始化css，异步加载的不会提取
         }),
         new HtmlWebpackPlugin({
@@ -89,6 +116,7 @@ module.exports = {
                 collapseWhitespace: true
             }
             // inject: false
-        })
+        }),
+        new CleanWebpackPlugin(['dist'])
     ]
 };
