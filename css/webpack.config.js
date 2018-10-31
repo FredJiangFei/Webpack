@@ -25,7 +25,7 @@ module.exports = {
                             loader: 'css-loader',
                             options: {
                                 modules: true,
-                                localIdentName: '[path][name]_[local]_[hash:base64:5]'
+                                localIdentName: '[local]'
                             }
                         },
                         {
@@ -34,6 +34,20 @@ module.exports = {
                         
                     ]
                 })
+            },
+            {
+                test:/\.(eot|woff2?|ttf|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            name: '[name]-[hash:5].[ext]',
+                            limit: 5000,
+                            publicPath: 'fonts/',
+                            useRelativePath: true
+                        }
+                    }
+                ]
             }
         ]
     },
