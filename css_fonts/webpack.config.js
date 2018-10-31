@@ -100,6 +100,11 @@ module.exports = {
                     }
                 }
             ]
+        },
+        proxy: {
+            'api/': {
+                target: 'https://api.github.com'
+            }
         }
         // inline: false
     },
