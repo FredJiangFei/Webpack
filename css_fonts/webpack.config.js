@@ -12,6 +12,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name]-bundle-[hash:5].js'
     },
+    devtool: 'source-map',
     devServer: {
         port: 9001,
         overlay: true,
@@ -51,14 +52,16 @@ module.exports = {
                     {
                         loader: 'style-loader',
                         options: {
-                            singleton: true
+                            // singleton: true,
+                            sourceMap: true
                         }
                     },
                     {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            localIdentName: '[local]'
+                            localIdentName: '[local]',
+                            sourceMap: true
                         }
                     },
                     // {
@@ -75,7 +78,10 @@ module.exports = {
                     //     }
                     // },
                     {
-                        loader: 'less-loader'
+                        loader: 'less-loader',
+                        options: {
+                            sourceMap: true
+                        }
                     },
                 ]
                 // use: ExtractTextWebpackPlugin.extract({
