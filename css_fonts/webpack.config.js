@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -13,6 +14,9 @@ module.exports = {
     },
     devServer: {
         port: 9001,
+        overlay: true,
+        hot: true,
+        hotOnly: true,
         historyApiFallback: {
             rewrites: [
                 {
@@ -36,47 +40,53 @@ module.exports = {
                 // }
             }
         },
-        open:true
+        open: true
         // inline: false
     },
     module: {
         rules: [
             {
                 test: /\.less$/,
-                use: ExtractTextWebpackPlugin.extract({
-                    fallback: {
+                use: [
+                    {
                         loader: 'style-loader',
                         options: {
                             singleton: true
                         }
                     },
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                modules: true,
-                                localIdentName: '[local]'
-                            }
-                        },
-                        // {
-                        //     loader: 'postcss-loader',
-                        //     options: {
-                        //         ident: 'postcss',
-                        //         plugins: [
-                        //             require('postcss-sprites')({
-                        //                 spritePath: 'dist/imgs',
-                        //                 retina: true
-                        //             }),      
-                        //             require('postcss-cssnext')()
-                        //         ]
-                        //     }
-                        // },
-                        {
-                            loader: 'less-loader'
-                        },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]'
+                        }
+                    },
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         ident: 'postcss',
+                    //         plugins: [
+                    //             require('postcss-sprites')({
+                    //                 spritePath: 'dist/imgs',
+                    //                 retina: true
+                    //             }),      
+                    //             require('postcss-cssnext')()
+                    //         ]
+                    //     }
+                    // },
+                    {
+                        loader: 'less-loader'
+                    },
+                ]
+                // use: ExtractTextWebpackPlugin.extract({
+                //     fallback: {
+                //         loader: 'style-loader',
+                //         options: {
+                //             singleton: true
+                //         }
+                //     },
 
-                    ]
-                })
+                // })
             },
             {
                 test: /\.(eot|woff2?|ttf|svg)$/,
@@ -130,6 +140,9 @@ module.exports = {
             }
             // inject: false
         }),
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin(['dist']),
+
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
     ]
 };
