@@ -47,6 +47,23 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['env']
+                        }
+                    },
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            formatter: require('eslint-friendly-formatter')
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.less$/,
                 use: [
                     {

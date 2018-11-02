@@ -8,9 +8,9 @@ app.innerHTML = '<div class ="' + base.box + '"></div>';
 var list = componentA()
 app.appendChild(list)
 
-$.get('/users', function (data) {
-    console.log(data);
-});
+// $.get('/users', function (data) {
+//     console.log(data);
+// });
 
 if (module.hot) {
     module.hot.accept();
